@@ -132,5 +132,6 @@ otherInfoContainer.appendChild(windSpeedContainer);
 
 container.appendChild(mainInfoContainer);
 container.appendChild(otherInfoContainer);
+container.appendChild(footer);
 
 document.body.appendChild(container);

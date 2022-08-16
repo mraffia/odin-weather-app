@@ -1,0 +1,25 @@
+body {
+    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    padding: 0;
+    margin: 0;
+}
+
+img {
+    width: 36px;
+    height: 36px;
+}
+
+.main-icon {
+    width: 96px;
+    height: 96px;
+}
+
+.container {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 2fr 1fr 4vh;
+    grid-template-areas: 
+    "main-info"
+    "other-info"
+    "footer";
+}
