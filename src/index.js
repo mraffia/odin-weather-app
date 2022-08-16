@@ -12,8 +12,10 @@ import Sun from "./images/sun-solid.svg";
 import TemperatureHalf from "./images/temperature-half-solid.svg";
 import Wind from "./images/wind-solid.svg";
 
-let currentTempFormat = "°C";
-let otherTempFormat = "°F";
+let currentTempUnit = "metric";
+let otherTempUnit = "imperial";
+let currentCity = "bandung";
+const API_KEY = "e4cb62eba5da1b0dd44ba86650e28ccc";
 
 const container = document.createElement('div');
 
@@ -22,7 +24,7 @@ const mainStatus = document.createElement('div');
 const locationName = document.createElement('div');
 const dateTime = document.createElement('div');
 const mainTemp = document.createElement('div');
-const changeTempFormat = document.createElement('button');
+const changeTempUnit = document.createElement('button');
 const mainIcon = document.createElement('img');
 const formLocationContainer = document.createElement('div');
 const formLocation = document.createElement("form");
@@ -56,7 +58,7 @@ mainStatus.classList.add('main-status');
 locationName.classList.add('location-name');
 dateTime.classList.add('date-time');
 mainTemp.classList.add('main-temp');
-changeTempFormat.classList.add('change-temp-format');
+changeTempUnit.classList.add('change-temp-unit');
 mainIcon.classList.add('main-icon');
 formLocationContainer.classList.add('form-location-container');
 formLocation.classList.add('form-location');
@@ -85,8 +87,8 @@ windSpeedIcon.classList.add('windspeed-icon');
 footer.classList.add('footer');
 
 mainIcon.src = Cloud;
-locationName.textContent = "Bandung, Indonesia";
-changeTempFormat.textContent = `Display ${otherTempFormat}`;
+locationName.textContent = currentCity;
+changeTempUnit.textContent = `Display ${otherTempUnit}`;
 formLocationName.placeholder = "Search Location...";
 formLocatoinSubmit.textContent = "Search";
 
@@ -105,7 +107,7 @@ mainInfoContainer.appendChild(mainStatus);
 mainInfoContainer.appendChild(locationName);
 mainInfoContainer.appendChild(dateTime);
 mainInfoContainer.appendChild(mainTemp);
-mainInfoContainer.appendChild(changeTempFormat);
+mainInfoContainer.appendChild(changeTempUnit);
 mainInfoContainer.appendChild(mainIcon);
 formLocationContainer.appendChild(formLocation);
 formLocationContainer.appendChild(formLocationName);
@@ -133,5 +135,21 @@ otherInfoContainer.appendChild(windSpeedContainer);
 container.appendChild(mainInfoContainer);
 container.appendChild(otherInfoContainer);
 container.appendChild(footer);
+
+async function generateWeatherInfo() {
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${API_KEY}&units=${currentTempUnit}`, {
+            mode: 'cors'
+        })
+        const weatherData = await response.json();
+        
+        console.log(weatherData);
+    } catch (error) {
+        alert('Whoops an error occured from the server');
+        console.error(error);
+    }
+}
+
+generateWeatherInfo();
 
 document.body.appendChild(container);

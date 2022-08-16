@@ -23,3 +23,10 @@ img {
     "other-info"
     "footer";
 }
+
+.main-info-container {
+    grid-area: main-info;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+}
