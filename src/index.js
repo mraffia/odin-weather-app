@@ -41,10 +41,6 @@ const humidityContainer = document.createElement('div');
 const humidityText = document.createElement('div');
 const humidityValue = document.createElement('div');
 const humidityIcon = document.createElement('img');
-const chanceOfRainContainer = document.createElement('div');
-const chanceOfRainText = document.createElement('div');
-const chanceOfRainValue = document.createElement('div');
-const chanceOfRainIcon = document.createElement('img');
 const windSpeedContainer = document.createElement('div');
 const windSpeedText = document.createElement('div');
 const windSpeedValue = document.createElement('div');
@@ -75,10 +71,6 @@ humidityContainer.classList.add('humidity-container');
 humidityText.classList.add('humidity-text');
 humidityValue.classList.add('humidity-value');
 humidityIcon.classList.add('humidity-icon');
-chanceOfRainContainer.classList.add('chanceofrain-container');
-chanceOfRainText.classList.add('chanceofrain-text');
-chanceOfRainValue.classList.add('chanceofrain-value');
-chanceOfRainIcon.classList.add('chanceofrain-icon');
 windSpeedContainer.classList.add('windspeed-container');
 windSpeedText.classList.add('windspeed-text');
 windSpeedValue.classList.add('windspeed-value');
@@ -91,13 +83,12 @@ locationName.textContent = currentCity;
 changeTempUnit.textContent = `Display ${otherTempUnit}`;
 formLocationName.placeholder = "Search Location...";
 formLocatoinSubmit.textContent = "Search";
+// locationNotFound.textContent = "Location not found. Search must be in the form of "City", "City, State" or "City, Country"."
 
 feelsLikeIcon.src = TemperatureHalf;
 feelsLikeText.textContent = "Feels Like";
 humidityIcon.src = Smog;
 humidityText.textContent = "Humidity";
-chanceOfRainIcon.src = CloudRain;
-chanceOfRainText.textContent = "Chance of Rain";
 windSpeedIcon.src = Wind;
 windSpeedText.textContent = "Wind Speed ";
 
@@ -121,15 +112,11 @@ feelsLikeContainer.appendChild(feelsLikeValue);
 humidityContainer.appendChild(humidityIcon);
 humidityContainer.appendChild(humidityText);
 humidityContainer.appendChild(humidityValue);
-chanceOfRainContainer.appendChild(chanceOfRainIcon);
-chanceOfRainContainer.appendChild(chanceOfRainText);
-chanceOfRainContainer.appendChild(chanceOfRainValue);
 windSpeedContainer.appendChild(windSpeedIcon);
 windSpeedContainer.appendChild(windSpeedText);
 windSpeedContainer.appendChild(windSpeedValue);
 otherInfoContainer.appendChild(feelsLikeContainer);
 otherInfoContainer.appendChild(humidityContainer);
-otherInfoContainer.appendChild(chanceOfRainContainer);
 otherInfoContainer.appendChild(windSpeedContainer);
 
 container.appendChild(mainInfoContainer);
@@ -146,6 +133,8 @@ async function getWeatherData() {
         
         let filtered = filterWeatherData(weatherData);
         console.log(filtered);
+
+        populateWeatherData(filtered);
     } catch (error) {
         alert("WHOOPS " + error);
         console.error(error);
@@ -165,6 +154,18 @@ function filterWeatherData(data) {
     currentWeatherData["wind"] = { "speed": data["wind"]["speed"] };
 
     return currentWeatherData;
+}
+
+function populateWeatherData(data) {
+    let currentDate = new Date(data["dt"]);
+
+    locationName.textContent = data["name"];
+    dateTime.textContent = currentDate.toString();
+    mainTemp.textContent = Math.round(data["main"]["temp"]) + "°C";
+
+    feelsLikeValue.textContent = Math.round(data["main"]["feels_like"]) + "°C";
+    humidityValue.textContent = data["main"]["humidity"] + "%";
+    windSpeedValue.textContent = data["wind"]["speed"] + "m/s";
 }
 
 getWeatherData();
