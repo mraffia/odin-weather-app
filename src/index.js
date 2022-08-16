@@ -12,10 +12,10 @@ import Sun from "./images/sun-solid.svg";
 import TemperatureHalf from "./images/temperature-half-solid.svg";
 import Wind from "./images/wind-solid.svg";
 
+const API_KEY = "e4cb62eba5da1b0dd44ba86650e28ccc";
 let currentTempUnit = "metric";
 let otherTempUnit = "imperial";
-let currentCity = "bandung";
-const API_KEY = "e4cb62eba5da1b0dd44ba86650e28ccc";
+let currentCity = "Bandung";
 
 const container = document.createElement('div');
 
@@ -136,20 +136,37 @@ container.appendChild(mainInfoContainer);
 container.appendChild(otherInfoContainer);
 container.appendChild(footer);
 
-async function generateWeatherInfo() {
+async function getWeatherData() {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${currentCity}&appid=${API_KEY}&units=${currentTempUnit}`, {
             mode: 'cors'
         })
         const weatherData = await response.json();
-        
         console.log(weatherData);
+        
+        let filtered = filterWeatherData(weatherData);
+        console.log(filtered);
     } catch (error) {
-        alert('Whoops an error occured from the server');
+        alert("WHOOPS " + error);
         console.error(error);
     }
 }
 
-generateWeatherInfo();
+function filterWeatherData(data) {
+    let currentWeatherData = {};
+
+    currentWeatherData["dt"] = data["dt"];
+    currentWeatherData["main"] = { "feels_like": data["main"]["feels_like"] };
+    currentWeatherData["main"]["humidity"] = data["main"]["humidity"];
+    currentWeatherData["main"]["temp"] = data["main"]["temp"];
+    currentWeatherData["name"] = data["name"];
+    currentWeatherData["weather"] = [{ "description": data["weather"]["0"]["description"] }];
+    currentWeatherData["weather"][0]["icon"] = data["weather"]["0"]["icon"];
+    currentWeatherData["wind"] = { "speed": data["wind"]["speed"] };
+
+    return currentWeatherData;
+}
+
+getWeatherData();
 
 document.body.appendChild(container);
