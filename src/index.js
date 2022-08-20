@@ -138,7 +138,7 @@ async function getWeatherData(location, unit) {
 
         populateWeatherData(filtered);
     } catch (error) {
-        alert("WHOOPS " + error);
+        alert("Whoops, can't find the location you're looking for.\nSearch must be in the form of \"City\", \"City, State\" or \"City, Country\". ");
         console.error(error);
     }
 }
