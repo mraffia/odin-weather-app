@@ -80,7 +80,6 @@ windSpeedIcon.classList.add('windspeed-icon');
 
 footer.classList.add('footer');
 
-mainIcon.src = Cloud;
 locationName.textContent = currentLocation;
 changeUnitButton.textContent = `Display ${otherUnit}`;
 formLocationName.placeholder = "Search Location...";
@@ -152,7 +151,7 @@ function filterWeatherData(data) {
     currentWeatherData["main"]["temp"] = data["main"]["temp"];
     currentWeatherData["name"] = data["name"];
     currentWeatherData["weather"] = [{ "description": data["weather"]["0"]["description"] }];
-    currentWeatherData["weather"][0]["icon"] = data["weather"]["0"]["icon"];
+    currentWeatherData["weather"][0]["icon"] = data["weather"][0]["icon"];
     currentWeatherData["wind"] = { "speed": data["wind"]["speed"] };
 
     return currentWeatherData;
@@ -180,6 +179,7 @@ function populateWeatherData(data) {
     windSpeedValue.textContent = Number(data["wind"]["speed"]).toFixed(2) + speedUnit;
 
     changeUnitButton.textContent = `Display ${otherUnit}`;
+    mainIcon.src = "http://openweathermap.org/img/wn/" + data["weather"][0]["icon"] + "@2x.png";
 }
 
 function cToF(celsius) {
@@ -226,9 +226,11 @@ changeUnitButton.addEventListener('click', () => {
 
 formLocation.addEventListener('submit', (e) => {
     e.preventDefault();
-    currentLocation = e.target[0].value;
-    e.target.reset();
-    getWeatherData(currentLocation, currentUnit);
+    if (e.target[0].value !== "") {
+        currentLocation = e.target[0].value;
+        e.target.reset();
+        getWeatherData(currentLocation, currentUnit);
+    }
 });
 
 getWeatherData(currentLocation, currentUnit);
