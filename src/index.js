@@ -85,7 +85,7 @@ humidityText.textContent = "Humidity";
 windSpeedIcon.src = Wind;
 windSpeedText.textContent = "Wind Speed ";
 
-footer.innerHTML = "By yours truly,&nbsp;<a href='https://github.com/mraffia'> mraffia</a>";
+footer.innerHTML = "By yours truly,&nbsp;<a href='https://github.com/mraffia'>mraffia</a>&nbsp;(Photo by&nbsp;<a href='https://www.pexels.com/photo/blue-and-white-sky-with-stars-4737484/'>Rafael Cerqueira</a>)";
 
 mainInfoContainer.appendChild(mainStatus);
 mainInfoContainer.appendChild(locationName);
