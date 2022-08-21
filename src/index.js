@@ -1,14 +1,5 @@
 import './style.css';
-import CloudBolt from "./images/cloud-bolt-solid.svg";
-import CloudMoonRain from "./images/cloud-moon-rain-solid.svg";
-import CloudRain from "./images/cloud-rain-solid.svg";
-import CloudShowersHeavy from "./images/cloud-showers-heavy-solid.svg";
-import Cloud from "./images/cloud-solid.svg";
-import CloudSunRain from "./images/cloud-sun-rain-solid.svg";
-import CloudSun from "./images/cloud-sun-solid.svg";
-import Moon from "./images/moon-solid.svg";
 import Smog from "./images/smog-solid.svg";
-import Sun from "./images/sun-solid.svg";
 import TemperatureHalf from "./images/temperature-half-solid.svg";
 import Wind from "./images/wind-solid.svg";
 
