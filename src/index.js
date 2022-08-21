@@ -145,12 +145,20 @@ async function getWeatherData(location, unit) {
 function filterWeatherData(data) {
     let kiloPerHour = Number(data["wind"]["speed"]) * 3.6;
 
-    currentWeatherData["dt"] = data["dt"];
+    let statusLow = data["weather"][0]["description"];
+    let statusLowArr = statusLow.split(" ");
+
+    for (let i = 0; i < statusLowArr.length; i++) {
+        statusLowArr[i] = statusLowArr[i][0].toUpperCase() + statusLowArr[i].substr(1);
+    }
+
+    let status = statusLowArr.join(" ");
+
     currentWeatherData["main"] = { "feels_like": data["main"]["feels_like"] };
     currentWeatherData["main"]["humidity"] = data["main"]["humidity"];
     currentWeatherData["main"]["temp"] = data["main"]["temp"];
     currentWeatherData["name"] = data["name"];
-    currentWeatherData["weather"] = [{ "description": data["weather"]["0"]["description"] }];
+    currentWeatherData["weather"] = [{ "description": status }];
     currentWeatherData["weather"][0]["icon"] = data["weather"][0]["icon"];
     currentWeatherData["wind"] = { "speed": data["wind"]["speed"] };
 
@@ -158,7 +166,7 @@ function filterWeatherData(data) {
 }
 
 function populateWeatherData(data) {
-    let currentDate = new Date(data["dt"]);
+    let currentDate = new Date();
     let tempUnit;
     let speedUnit;
 
@@ -170,6 +178,7 @@ function populateWeatherData(data) {
         speedUnit = "mph";
     }
 
+    mainStatus.textContent = data["weather"][0]["description"];
     locationName.textContent = data["name"];
     dateTime.textContent = currentDate.toString();
     mainTemp.textContent = Math.round(data["main"]["temp"]) + tempUnit;

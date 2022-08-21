@@ -2,11 +2,19 @@ body {
     font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
     padding: 0;
     margin: 0;
+    color: #eee;
+    background: #121212;
+    background-image: url(./images/sky.jpg);
+}
+
+body a {
+    color: #809fff;
 }
 
 img {
     width: 36px;
     height: 36px;
+    filter: invert(99%) sepia(0%) saturate(179%) hue-rotate(220deg) brightness(113%) contrast(87%);
 }
 
 .main-icon {
@@ -17,7 +25,7 @@ img {
 .container {
     height: 100vh;
     display: grid;
-    grid-template-rows: 2fr 1fr 4vh;
+    grid-template-rows: 1fr 1fr 4vh;
     grid-template-areas: 
     "main-info"
     "other-info"
@@ -26,7 +34,62 @@ img {
 
 .main-info-container {
     grid-area: main-info;
-    width: 500px;
     display: flex;
     flex-direction: column;
+    padding: 48px 64px 48px 64px;
+}
+
+.main-status {
+    font-size: 48px;
+}
+
+.location-name {
+    font-size: 24px;
+}
+
+.date-time {
+    margin-bottom: 16px;
+}
+
+.main-temp {
+    font-size: 64px;
+    font-weight: bold;
+}
+
+.change-unit-button {
+    width: 120px;
+}
+
+.form-location-submit {
+    margin-left: 8px;
+}
+
+.other-info-container {
+    grid-area: other-info;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 64px 48px 64px;
+}
+
+.feelslike-container,
+.humidity-container,
+.windspeed-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.feelslike-value,
+.humidity-value,
+.windspeed-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer {
+    grid-area: footer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
