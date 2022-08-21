@@ -75,7 +75,8 @@ locationName.textContent = currentLocation;
 changeUnitButton.textContent = `Display ${otherUnit}`;
 formLocationName.placeholder = "Search Location...";
 formLocationSubmit.textContent = "Search";
-// locationNotFound.textContent = "Location not found. Search must be in the form of "City", "City, State" or "City, Country"."
+locationNotFound.hidden = true;
+locationNotFound.textContent = "Location not found. Search must be in the form of \"City\", \"City, State\" or \"City, Country\"."
 
 feelsLikeIcon.src = TemperatureHalf;
 feelsLikeText.textContent = "Feels Like";
@@ -121,14 +122,12 @@ async function getWeatherData(location, unit) {
             mode: 'cors'
         })
         const weatherData = await response.json();
-        console.log(weatherData);
-        
         let filtered = filterWeatherData(weatherData);
-        console.log(filtered);
+        locationNotFound.hidden = true;
 
         populateWeatherData(filtered);
     } catch (error) {
-        alert("Whoops, can't find the location you're looking for.\nSearch must be in the form of \"City\", \"City, State\" or \"City, Country\". ");
+        locationNotFound.hidden = false;
         console.error(error);
     }
 }

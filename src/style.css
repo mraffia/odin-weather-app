@@ -44,7 +44,7 @@ img {
 }
 
 .location-name {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .date-time {
@@ -84,6 +84,12 @@ img {
 .humidity-value,
 .windspeed-value {
     font-size: 24px;
+    font-weight: bold;
+}
+
+.location-not-found {
+    margin-top: 8px;
+    font-size: 14px;
     font-weight: bold;
 }
 
